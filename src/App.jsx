@@ -4,7 +4,8 @@ import Events from './components/Events/Events';
 import NewEvent from './components/Events/NewEvent';
 import EventDetails from './components/Events/EventDetails';
 import EditEvent from './components/Events/EditEvent';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './components/util/http';
 
 function App() {
   const router = createBrowserRouter([
@@ -27,7 +28,6 @@ function App() {
     },
   ])
 
-  const queryClient = new QueryClient();
 
   return (
     <>
