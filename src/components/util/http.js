@@ -1,6 +1,5 @@
+let url = 'http://localhost:3000/events';
 export async function fetchEvents({ signal ,searchTerm}) {
-    let url = 'http://localhost:3000/events';
-
     if(searchTerm){
         url += '?search='+searchTerm;
     }
@@ -17,4 +16,27 @@ export async function fetchEvents({ signal ,searchTerm}) {
     const { events } = await response.json();
 
     return events;
+}
+
+
+
+export async function createNewEvent(eventData) {
+    const responce = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(eventData),
+    })
+    
+    if(!responce.ok){
+        const error = new Error('An error occurred while sending the event');
+        error.status = responce.status;
+        error.info = await responce.json();
+        throw error;
+    }
+
+    const { event } = await responce.json();
+
+    return event
 }
