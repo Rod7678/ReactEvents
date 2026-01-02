@@ -59,3 +59,35 @@ export async function createNewEvent(eventData) {
 
     return event
 }
+
+
+export async function fetchEvent({ id, signal }) {
+    const response = await fetch(`${url}/${id}`, { signal });
+
+    if(!response.ok){
+        const error = new Error('An error occurred during fetching event');
+        error.code = response.status;
+        error.info = await response.json();
+        throw error;
+    }
+
+    const { event } = await response.json();
+
+    return event;
+    
+}
+
+export async function deleteEvent({ id }) {
+    const response = await fetch(`${url}/${id}`,{
+        method: 'DELETE',
+    });
+
+    if(!response.ok){
+        const error = new Error('An error occured during deleting event');
+        error.code = response.status;
+        error.info = await response.json();
+        throw error
+    }
+
+    return response.json()
+}

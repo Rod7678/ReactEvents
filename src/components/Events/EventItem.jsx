@@ -6,6 +6,8 @@ export default function EventItem({ event }) {
     month: 'short',
     year: 'numeric',
   });
+  
+
   return (
     <article className="event-item">
       <img src={`http://localhost:3000/${event.image}`} alt={event.title} />
